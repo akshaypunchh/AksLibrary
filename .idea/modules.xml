@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AksLibrary.iml" filepath="$PROJECT_DIR$/AksLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AksLibrary/AksLibrary-AksLibrary.iml" filepath="$PROJECT_DIR$/AksLibrary/AksLibrary-AksLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Volley/Volley.iml" filepath="$PROJECT_DIR$/Volley/Volley.iml" />
+    </modules>
+  </component>
+</project>

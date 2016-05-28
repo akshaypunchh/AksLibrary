@@ -1,0 +1,75 @@
+package com.akslibrary.request;
+
+import android.content.Context;
+
+import com.akslibrary.R;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
+
+public class GetRequest<T> extends Request<T> {
+
+    private Priority priority = Priority.HIGH;
+    private Type type;
+    private Response.Listener<T> onSuccess = null;
+    private Gson mGson;
+
+    public GetRequest(Context context, Type type, String url, Response.Listener<T> onSuccess, Response.ErrorListener errorListener,
+                      Priority priority) {
+        super(Method.GET, context.getString(R.string.URL_BASE) + url, errorListener);
+        this.priority = priority;
+        this.type = type;
+        this.onSuccess = onSuccess;
+        this.mGson = new Gson();
+        this.priority = priority;
+        setRetryPolicy(new DefaultRetryPolicy(context.getResources().getInteger(R.integer.api_timeout), 2, 1));
+    }
+
+    public GetRequest(Context context, Type type, String url, Response.Listener<T> onSuccess, Response.ErrorListener errorListener,
+                      Priority priority, boolean disableRetry) {
+        super(Method.GET, context.getString(R.string.URL_BASE) + url, errorListener);
+        this.priority = priority;
+        this.type = type;
+        this.onSuccess = onSuccess;
+        this.mGson = new Gson();
+        this.priority = priority;
+        
+        if (!disableRetry)
+            setRetryPolicy(new DefaultRetryPolicy(context.getResources().getInteger(R.integer.api_timeout), 2, 1));
+    }
+
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Response<T> parseNetworkResponse(NetworkResponse response) {
+        try {
+            String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+            return (Response<T>) Response.success(mGson.fromJson(json, type),
+                    HttpHeaderParser.parseCacheHeaders(response));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.error(new ParseError(e));
+        }
+    }
+
+    @Override
+    protected void deliverResponse(T response) {
+        if (response != null) {
+            onSuccess.onResponse(response);
+        }
+    }
+}
