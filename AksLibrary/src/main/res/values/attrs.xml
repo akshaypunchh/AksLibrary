@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="TypefacedTextView">
+        <attr name="typeface" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="TwoHintEditText">
+        <attr name="left_hint" format="string" />
+        <attr name="right_hint" format="string" />
+        <attr name="inputtype" format="string" />
+    </declare-styleable>
+
+
+    <!-- Custom ViewPager -->
+    <declare-styleable name="CustomViewPager">
+        <attr name="enable_swipe" format="boolean" />
+    </declare-styleable>
+
+</resources>
