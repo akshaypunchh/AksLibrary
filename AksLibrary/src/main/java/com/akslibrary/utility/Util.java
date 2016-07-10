@@ -28,11 +28,7 @@ import java.util.Date;
 
 public class Util {
     private static ConnectivityManager mCM;
-
-    public static int RESULT_CODE_FOLLOWLIST = 1001;
-    public static int RESULT_CODE_SEARCHKEY = 1002;
-    public static int RESULT_CODE_SELECT_PROFILE_IMAGE = 1003;
-    public static String KEY_LOGIN_USER = "KEY_LOGIN_USER";
+   // public static String KEY_LOGIN_USER = "KEY_LOGIN_USER";
 
     public static boolean hasInternetAccess(Context context) {
         if (mCM == null) {
